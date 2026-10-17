@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="记录课程、论文与生活中的每一点进步。Waikwan 的个人成长任务看板。">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'">
+  <title>日拱一卒 · Waikwan</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./style.css">
+  <script src="./core.js" defer></script>
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到主要内容</a>
+  <svg class="icon-defs" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><defs>
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></symbol>
+    <symbol id="i-checklist" viewBox="0 0 24 24"><path d="m3 6 2 2 4-4M12 6h9M3 13l2 2 4-4M12 13h9M3 20h6M12 20h9"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M12 5C8 2 4 3 2 4v15c4-2 7-1 10 1 3-2 6-3 10-1V4c-4-2-7-1-10 1Zm0 0v15"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 3v17h17M8 15l4-5 4 2 5-7"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12m-5-5 5 5 5-5M4 15v5h16v-5"/></symbol>
+    <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 16V4m-5 5 5-5 5 5M4 16v4h16v-4"/></symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="m12 3 2.8 6.2L21 12l-6.2 2.8L12 21l-2.8-6.2L3 12l6.2-2.8Z"/></symbol>
+    <symbol id="i-flame" viewBox="0 0 24 24"><path d="M13 3c1 5-5 6-4 10-2-1-3-3-3-3-4 7 1 11 6 11 6 0 10-8 5-12 0 3-2 4-2 4s2-6-2-10Z"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+    <symbol id="i-edit" viewBox="0 0 24 24"><path d="m14 5 5 5M4 20l5-1L21 7a2 2 0 0 0-5-5L4 14Z"/></symbol>
+    <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M5 19C0 9 7 2 21 3c1 13-6 19-16 16Zm0 0L16 8"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18M9 6V3h6v3M6 6l1 15h10l1-15M10 10v7M14 10v7"/></symbol>
+  </defs></svg>
+  <aside class="sidebar">
+    <a class="brand" href="./" aria-label="日拱一卒首页"><span class="brand-mark">∑</span><span>日拱一卒<small>WAIKWAN'S JOURNAL</small></span></a>
+    <div class="workspace"><span class="workspace-avatar">W</span><span>我的成长空间<small>2026 · 秋季学期</small></span><span class="workspace-dot"></span></div>
+    <div class="nav-label">我的空间 <span>WORKSPACE</span></div>
+    <nav aria-label="主导航">
+      <button class="nav-item active" data-view="overview" aria-current="page"><svg><use href="#i-grid"/></svg>成长总览</button>
+      <button class="nav-item" data-view="tasks"><svg><use href="#i-checklist"/></svg>全部任务<span id="nav-task-count" class="nav-count">5</span></button>
+      <button class="nav-item" data-view="goals"><svg><use href="#i-book"/></svg>阶段目标</button>
+      <button class="nav-item" data-view="history"><svg><use href="#i-chart"/></svg>成长记录</button>
+    </nav>
+    <div class="nav-label projects-label">正在生长 <span>PROJECTS</span></div>
+    <div id="sidebar-projects"></div>
+    <div class="sidebar-bottom"><div class="small-quote">不积跬步，<br>无以至千里。</div><span class="quote-credit">荀子 · 劝学</span><a href="../" class="home-link">返回个人网站 <span>↗</span></a></div>
+  </aside>
+  <div class="app-shell">
+    <header class="topbar"><div class="breadcrumb">我的空间 <span>/</span> <b id="view-label">成长总览</b></div><div class="top-actions"><span id="save-status" class="save-status"><i></i>已保存在本机</span><button class="icon-button" id="export-btn" title="导出 JSON 备份" aria-label="导出备份"><svg><use href="#i-download"/></svg></button><button class="icon-button" id="import-btn" title="导入 JSON 备份" aria-label="导入备份"><svg><use href="#i-upload"/></svg></button><span class="avatar">W</span></div></header>
+    <div id="demo-banner" class="demo-banner" hidden>正在体验演示数据，所有操作均不影响你的个人记录。<button id="exit-demo">退出演示</button></div>
+    <div id="storage-warning" class="storage-warning" role="alert" hidden></div>
+    <main id="main">
+      <div class="page-heading"><div><div class="eyebrow">A LITTLE BETTER, EVERY DAY</div><h1 id="page-title">让进步，有迹可循<span class="heading-dot">.</span></h1><p id="page-subtitle">把远方的目标，拆成今天可以完成的一小步。</p></div><div class="date-stamp"><span id="date-day"></span><small id="date-full"></small></div></div>
+      <section id="overview-hero" class="hero">
+        <div class="hero-copy"><span class="hero-label"><span></span> 2026 秋季 · 正在生长</span><h2>每天一点点，<br>也是很了不起的前进。</h2><p>一道习题，一页论文，一次训练。<br>你认真走过的每一步，都在这里留下痕迹。</p><button class="primary-button" data-action="new-task"><svg><use href="#i-plus"/></svg>记录今天的一小步</button></div>
+        <div class="hero-art" aria-hidden="true"><svg viewBox="0 0 410 250"><defs><linearGradient id="hill" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#d1c7eb" stop-opacity=".65"/><stop offset="1" stop-color="#e9e3f5" stop-opacity="0"/></linearGradient></defs><ellipse cx="240" cy="145" rx="135" ry="79" fill="none" stroke="#ddd4ee" stroke-dasharray="3 7"/><ellipse cx="240" cy="145" rx="100" ry="112" transform="rotate(45 240 145)" fill="none" stroke="#ddd4ee"/><path d="M20 230C80 225 100 174 153 181S224 147 258 119 302 98 366 26V250H20Z" fill="url(#hill)"/><path d="M20 230C80 225 100 174 153 181S224 147 258 119 302 98 366 26" fill="none" stroke="#8d79b5" stroke-width="2"/><circle cx="258" cy="119" r="5" fill="#8d79b5" stroke="#f5f1fa" stroke-width="4"/><circle cx="366" cy="26" r="7" fill="#776293" stroke="#f5f1fa" stroke-width="5"/><path d="M224 199V119c-1-32-18-48-47-44 0 28 16 45 47 44m0 39c0-32 18-48 47-44 0 28-16 45-47 44" fill="#b0bea1" stroke="#849674" stroke-width="1.3"/><path d="M210 201h29" stroke="#849674" stroke-linecap="round"/><text x="106" y="66" fill="#a596b8" font-family="Georgia,serif" font-size="23" font-style="italic">Δ &gt; 0</text><text x="308" y="204" fill="#b5a8c6" font-family="Georgia,serif" font-size="28">∞</text><path d="M326 74v10m-5-5h10" stroke="#b0a1c8"/><circle cx="111" cy="138" r="3" fill="#c0b1d5"/></svg><span class="art-caption">SMALL STEPS. REAL GROWTH.</span></div>
+      </section>
+      <section class="stats-grid" aria-label="进度统计">
+        <article class="stat-card"><span class="stat-label">阶段里程碑 <svg><use href="#i-chart"/></svg></span><div class="stat-value"><span id="stat-percent">0</span><small>%</small><span class="stat-track"><i id="stat-progress"></i></span></div><p id="stat-milestones">0 / 0 个已完成</p></article>
+        <article class="stat-card"><span class="stat-label">今日任务 <svg><use href="#i-checklist"/></svg></span><div class="stat-value"><span id="stat-today">0</span><small id="stat-today-total">/ 5</small></div><p id="stat-today-copy">每完成一件，就向前一点</p></article>
+        <article class="stat-card"><span class="stat-label">连续行动 <svg><use href="#i-flame"/></svg></span><div class="stat-value"><span id="stat-streak">0</span><small>天</small></div><p>从今天开始，也很好</p></article>
+        <article class="stat-card"><span class="stat-label">本周完成 <svg><use href="#i-spark"/></svg></span><div class="stat-value"><span id="stat-week">0</span><small>项</small></div><p>所有完成，都值得被看见</p></article>
+      </section>
+      <div id="task-area" class="task-area">
+        <section class="panel today-panel"><div class="section-top"><div><h2 id="task-heading">今天，先做这些 <span id="task-count" class="count-pill"></span></h2><p>把注意力放在可以完成的下一步。</p></div><button class="text-button" data-action="copy-day" title="将最近一天的任务复制到今天">沿用安排</button><button class="text-button" data-action="new-task"><svg><use href="#i-plus"/></svg>添加任务</button></div><div class="task-toolbar"><div class="segmented" role="group" aria-label="任务状态"><button data-filter="all" class="selected">全部</button><button data-filter="pending">待完成</button><button data-filter="done">已完成</button></div><input id="task-search" type="search" placeholder="搜索任务…" aria-label="搜索任务"></div><div id="task-list"></div><button class="add-inline" data-action="new-task"><span>＋</span> 添加一个小任务，让进步开始</button></section>
+        <aside class="right-column"><section class="panel weekly-panel"><div class="section-top"><h2>这一周的脚印</h2><span class="tiny-tag">本周</span></div><div id="week-chart" class="week-chart" aria-label="本周每天完成数量"></div><div class="week-caption"><span><i></i> 完成的任务与里程碑</span><strong id="week-total">0 项</strong></div></section><section class="gentle-note"><span class="note-icon"><svg><use href="#i-leaf"/></svg></span><h3>允许慢慢来，<br>但记得留下脚印。</h3><p>完成任务会留下日常记录。<br>完成阶段里程碑，会点亮目标进度。</p><button class="text-button" data-view="goals">看看我的下一步 <svg><use href="#i-arrow"/></svg></button></section></aside>
+      </div>
+      <section id="goal-area" class="goal-area"><div class="section-top outside"><div><h2>把大目标，一点点点亮</h2><p>按新增里程碑计算；已学内容保留为起点，不虚构百分比。</p></div><button class="text-button" data-action="new-goal"><svg><use href="#i-plus"/></svg>新建目标</button></div><div id="goal-filters" class="goal-filters" role="group" aria-label="目标类别"><button class="selected" data-category="all">全部目标</button><button data-category="study">课程学习</button><button data-category="research">论文研究</button><button data-category="life">健康与语言</button><button data-category="work">工作与生活</button></div><div id="goal-grid" class="goal-grid"></div></section>
+      <section id="history-area" class="panel history-area"><div class="section-top"><div><h2>让坚持，慢慢长成一片绿</h2><p>过去 12 周的真实完成记录 · 点击格子回看当天</p></div><span id="activity-total" class="tiny-tag">累计 0 次行动</span></div><div class="heatmap-scroll"><div class="heatmap-layout"><div class="weekday-labels"><span>一</span><span>三</span><span>五</span><span>日</span></div><div id="heatmap" class="heatmap"></div></div></div><div class="heatmap-bottom"><span id="history-selection">点亮第一格，从一个小任务开始。</span><div class="heatmap-legend">少 <i></i><i></i><i></i><i></i><i></i> 多</div></div><div id="history-log" class="history-log" hidden></div></section>
+      <footer><span><span class="footer-mark">∑</span> 日拱一卒 <span class="footer-divider">/</span> 记录真实的小进步</span><div><span>本地保存 · 无账号 · 无追踪</span><button id="demo-btn" class="footer-link">体验演示数据</button><button id="about-btn" class="footer-link">灵感与使用说明</button></div></footer>
+    </main>
+  </div>
+  <dialog id="task-dialog"><form id="task-form"><div class="dialog-heading"><div><div class="eyebrow">ONE SMALL STEP</div><h2 id="task-dialog-title">添加一个小任务</h2></div><button type="button" class="icon-button" data-close aria-label="关闭"><svg><use href="#i-close"/></svg></button></div><input name="id" type="hidden"><label>要完成什么？<input name="title" required maxlength="300" placeholder="例如：独立验证一个定义的例子"></label><div class="form-grid"><label>所属目标<select name="projectId" id="task-project"></select></label><label>计划日期<input name="date" type="date" required></label></div><label>关联阶段里程碑（可选）<select name="milestoneId" id="task-milestone"></select><small>关联后，完成任务会同步点亮这个里程碑。</small></label><label>预计用时（分钟）<input name="minutes" type="number" min="0" max="1440" step="1" value="25" required></label><div class="dialog-actions"><button type="button" class="secondary-button" data-close>取消</button><button type="submit" class="primary-button">保存任务 <svg><use href="#i-arrow"/></svg></button></div></form></dialog>
+  <dialog id="goal-dialog"><form id="goal-form"><div class="dialog-heading"><div><div class="eyebrow">ROOM TO GROW</div><h2 id="goal-dialog-title">新建阶段目标</h2></div><button type="button" class="icon-button" data-close aria-label="关闭"><svg><use href="#i-close"/></svg></button></div><input name="id" type="hidden"><label>目标名称<input name="name" required maxlength="100" placeholder="例如：本学期的一门课程"></label><div class="form-grid"><label>类别<select name="category"><option value="study">课程学习</option><option value="research">论文研究</option><option value="life">健康与语言</option><option value="work">工作与生活</option></select></label><label>目标日期（可选）<input name="deadline" type="date"></label></div><label>当前起点<input name="baseline" maxlength="300" placeholder="例如：已学到第二章"></label><label>一句话说明<input name="description" maxlength="1000"></label><label id="new-milestones-label">里程碑（每行一项）<textarea name="milestones" rows="5" maxlength="6000" placeholder="读清定义与主要结论&#10;复现一个例子&#10;完成一次自测"></textarea></label><div class="dialog-actions"><button type="button" class="secondary-button" data-close>取消</button><button type="submit" class="primary-button">保存目标 <svg><use href="#i-arrow"/></svg></button></div></form></dialog>
+  <dialog id="milestone-dialog" class="wide-dialog"><div class="dialog-heading"><div><div class="eyebrow">STEP BY STEP</div><h2 id="milestone-title"></h2><p id="milestone-baseline"></p></div><button class="icon-button" data-close aria-label="关闭"><svg><use href="#i-close"/></svg></button></div><div id="milestone-progress"></div><div id="milestone-list"></div><form id="milestone-form" class="milestone-add"><input name="title" required maxlength="300" placeholder="添加一个可检查的里程碑" aria-label="新里程碑名称"><button class="primary-button" type="submit">添加</button></form><p class="dialog-tip">增加里程碑会改变分母，百分比可能下降；已经完成的记录仍会保留。</p></dialog>
+  <dialog id="confirm-dialog"><div class="dialog-heading"><h2 id="confirm-title"></h2><button class="icon-button" data-close aria-label="关闭"><svg><use href="#i-close"/></svg></button></div><p id="confirm-copy"></p><div class="dialog-actions"><button class="secondary-button" data-close>取消</button><button class="primary-button" id="confirm-accept">确认</button></div></dialog>
+  <dialog id="about-dialog" class="wide-dialog"><div class="dialog-heading"><h2>关于这个成长空间</h2><button class="icon-button" data-close aria-label="关闭"><svg><use href="#i-close"/></svg></button></div><div class="about-copy"><p>任务记录日常行动，阶段里程碑衡量目标完成。二者只有在明确关联时才会同步，避免一次打卡就把整章算成学完。</p><p>初始目标是通用示例，可以自行编辑，也可导入保存在本机的个人计划。已有课程进度只作为起点说明；新增里程碑从零开始。</p><p>数据保存在当前浏览器、当前网站的本地存储中，不上传到 GitHub。不同设备、浏览器及网站地址不会自动同步；清除浏览器数据可能丢失记录，请定期导出备份。导入会替换当前记录，执行前会提示。</p><p>页面本身可公开访问。本地存储没有加密；同一网站下的脚本也可能读取它，请勿在任务中保存密码或高度敏感资料。</p><h3>GitHub 案例启发</h3><ul><li><a href="https://github.com/super-productivity/super-productivity" target="_blank" rel="noopener noreferrer">Super Productivity</a>：项目分组、任务与进度记录。</li><li><a href="https://github.com/wa0x6e/cal-heatmap" target="_blank" rel="noopener noreferrer">Cal-Heatmap</a>：贡献日历式的时间可视化。</li><li><a href="https://github.com/HabitRPG/habitica" target="_blank" rel="noopener noreferrer">Habitica</a>：完成任务后的正向反馈。</li></ul><p>本页为独立编写的静态实现，未复制上述项目源码，也无需加载第三方脚本。</p></div></dialog>
+  <input id="import-file" type="file" accept="application/json,.json" hidden>
+  <div id="toast" role="status" aria-live="polite"></div><div id="confetti" aria-hidden="true"></div>
+  <noscript><p class="noscript">请启用 JavaScript 以使用任务看板。数据仅保存在本机浏览器。</p></noscript>
+</body>
+</html>
